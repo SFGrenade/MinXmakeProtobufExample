@@ -79,7 +79,20 @@ jobs:
 
     - name: Configure xmake and install dependencies (Windows)
       if: ${{ matrix.platform.os == 'windows' }}
-      run: xmake config -vD --arch=${{ matrix.platform.arch }} --mode=${{ matrix.mode }} --kind=${{ matrix.libkind }} --vs_runtime=${{ matrix.platform.vs_runtime }} --yes --policies=package.precompiled:n
+      run: |
+        git clone https://github.com/xmake-io/xmake.git --recurse-submodules -b runenvs xmakesrc
+        cd xmakesrc/core
+        xmake -P .
+        cd ../..
+        Copy-Item ./xmakesrc/core/build/xmake.exe ./xmakesrc/xmake
+        Copy-Item ./xmakesrc/scripts/xrepo.bat ./xmakesrc/xmake
+        Copy-Item ./xmakesrc/scripts/xrepo.ps1 ./xmakesrc/xmake
+        $Env:XMAKE_MAIN_REPO = "https://github.com/xmake-io/xmake-repo.git"
+        $Env:XMAKE_PROGRAM_DIR = $(Resolve-Path ./xmakesrc/xmake)
+        Set-Item -Path Env:Path -Value ($Env:XMAKE_PROGRAM_DIR + ";" + $Env:Path)
+        xmake config -vD --arch=${{ matrix.platform.arch }} --mode=${{ matrix.mode }} --kind=${{ matrix.libkind }} --vs_runtime=${{ matrix.platform.vs_runtime }} --yes --policies=package.precompiled:n
+        xmake build -vD -a -y
+        xmake install -vDo dest/ --group=EXES
 
     # Save dependencies
     - name: Save cached xmake dependencies
