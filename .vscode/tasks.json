@@ -136,7 +136,7 @@
     {
       "label": "XMake package",
       "type": "shell",
-      "command": "xmake package -vD -o E:\\xmake_packages -g LIBS >_build_logs\\10_package.txt 2>&1",
+      "command": "xmake package -vD -o E:\\xmake_packages MinExample >_build_logs\\10_package.txt 2>&1",
       "options": {
         "env": {
           "PATH": "C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;D:\\Git;D:\\Git\\cmd;D:\\xmake"
@@ -160,7 +160,7 @@
     {
       "label": "XMake install",
       "type": "shell",
-      "command": "xmake install -vD -o E:\\System_Simulator -g LIBS >_build_logs\\20_install.txt 2>&1",
+      "command": "xmake install -vD -o E:\\System_Simulator MinExample >_build_logs\\20_install.txt 2>&1",
       "options": {
         "env": {
           "PATH": "C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;D:\\Git;D:\\Git\\cmd;D:\\xmake"
